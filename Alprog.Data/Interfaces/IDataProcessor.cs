@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Alprog.Data.Interfaces
+namespace Alprog.Data.Pipeline.Interfaces
 {
     public interface IDataProcessor<T>
     {

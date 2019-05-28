@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Alprog.Data.Interfaces
+namespace Alprog.Data.Pipeline.Interfaces
 {
     public interface IDataPipeline<T>
     {
-        ICollection<IDataProcessor<T>> Processors { get; set; }
-        void LoadHere(IDataSource<T> someData);
+        int CurrentProcessorIndex { get; set; }
+        IDataProcessor<T> CurrentProcessor { get; set; }
+        IDataSource<T> CurrentData { get; set; }
+        IList<IDataProcessor<T>> Processors { get; set; }
         void StartAndContinueToEnd();
-        IDataSource<T> NextProcessor(out IDataProcessor<T> processor);
+        IDataSource<T> NextProcessor();
     }
 }
