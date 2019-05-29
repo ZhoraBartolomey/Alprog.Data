@@ -19,6 +19,10 @@ namespace Alprog.Data.Pipeline
         public IDataSource<T> CurrentData { get; set; }
         IDataSource<T> DataSource { get; set; }
 
+        public void Add(IDataProcessor<T> processor)
+        {
+            Processors.Add(processor);
+        }
 
         public IDataSource<T> NextProcessor()
         {

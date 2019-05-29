@@ -12,5 +12,6 @@ namespace Alprog.Data.Pipeline.Interfaces
         IList<IDataProcessor<T>> Processors { get; set; }
         void StartAndContinueToEnd();
         IDataSource<T> NextProcessor();
+        void Add(IDataProcessor<T> processor);
     }
 }
