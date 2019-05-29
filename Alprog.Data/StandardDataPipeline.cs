@@ -5,26 +5,26 @@ using System.Text;
 
 namespace Alprog.Data.Pipeline
 {
-    public class StandardDataPipeline<T> : IDataPipeline<T>
+    public class StandardDataPipeline : IDataPipeline
     {
         public StandardDataPipeline()
         {
-            Processors = new List<IDataProcessor<T>>();
+            Processors = new List<IDataProcessor>();
         }
 
 
-        public IList<IDataProcessor<T>> Processors { get; set; }
+        public IList<IDataProcessor> Processors { get; set; }
         public int CurrentProcessorIndex { get; set; } = -1;
-        public IDataProcessor<T> CurrentProcessor { get; set; }
-        public IDataSource<T> CurrentData { get; set; }
-        IDataSource<T> DataSource { get; set; }
+        public IDataProcessor CurrentProcessor { get; set; }
+        public IDataSource CurrentData { get; set; }
+        IDataSource DataSource { get; set; }
 
-        public void Add(IDataProcessor<T> processor)
+        public void Add(IDataProcessor processor)
         {
             Processors.Add(processor);
         }
 
-        public IDataSource<T> NextProcessor()
+        public IDataSource NextProcessor()
         {
             CurrentProcessorIndex++;
             CurrentProcessor = Processors[CurrentProcessorIndex];

@@ -5,24 +5,24 @@ using System.Text;
 
 namespace Alprog.Data.Pipeline
 {
-    public class ListDataSource<T> : IDataSource<T>
+    public class ListDataSource : IDataSource
     {
 
-        public List<T> Items { get; set; } = new List<T>();
+        public List<object> Items { get; set; } = new List<object>();
 
-        public void Add(T item)
+        public void Add(object item)
         {
             Items.Add(item);
         }
 
-        public void AddRange(T[] items)
+        public void AddRange(object[] items)
         {
             Items.AddRange(items);
         }
 
-        public void AddRange(IDataSource<T> data)
+        public void AddRange(IDataSource data)
         {
-            foreach (T d in data)
+            foreach (object d in data)
             {
                 Items.Add(d);
             }
@@ -33,24 +33,24 @@ namespace Alprog.Data.Pipeline
             Items.Clear();
         }
 
-        public IDataSource<T> Create()
+        public IDataSource Create()
         {
-            return new ListDataSource<T>();
+            return new ListDataSource();
         }
 
-        public T Get(int index)
+        public object Get(int index)
         {
             return Items[index];
         }
 
-        public IEnumerator<T> GetEnumerator()
+        public IEnumerator<object> GetEnumerator()
         {
             return Items.GetEnumerator();
         }
 
-        public IDataSource<T> GetRange(int begin, int end)
+        public IDataSource GetRange(int begin, int end)
         {
-            ListDataSource<T> result = new ListDataSource<T>();
+            ListDataSource result = new ListDataSource();
             for (int i = begin; i <= end; i++)
             {
                 result.Add(Items[i]);   
@@ -58,7 +58,7 @@ namespace Alprog.Data.Pipeline
             return result;
         }
 
-        public bool Remove(T item)
+        public bool Remove(object item)
         {
             return Items.Remove(item);
         }

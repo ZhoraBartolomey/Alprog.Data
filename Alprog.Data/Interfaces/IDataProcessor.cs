@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Alprog.Data.Pipeline.Interfaces
 {
-    public interface IDataProcessor<T>
+    public interface IDataProcessor
     {
         Guid Id { get; set; }
-        IDataSource<T> Process(IDataSource<T> input);
+        IDataSource Process(IDataSource input);
     }
 }

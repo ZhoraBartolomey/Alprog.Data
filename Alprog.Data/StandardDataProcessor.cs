@@ -5,16 +5,16 @@ using System.Text;
 
 namespace Alprog.Data.Pipeline
 {
-    public class StandardDataProcessor<T> : IDataProcessor<T>
+    public class StandardDataProcessor<T> : IDataProcessor
     {
         public StandardDataProcessor() { }
-        public StandardDataProcessor(Func<IDataSource<T>, IDataSource<T>> processor)
+        public StandardDataProcessor(Func<IDataSource, IDataSource> processor)
         {
             Processor = processor;
         }
         public Guid Id { get; set; } = Guid.NewGuid();
-        public Func<IDataSource<T>, IDataSource<T>> Processor { get; set; }
-        public IDataSource<T> Process(IDataSource<T> input)
+        public Func<IDataSource, IDataSource> Processor { get; set; }
+        public IDataSource Process(IDataSource input)
         {
             return Processor(input);
         }

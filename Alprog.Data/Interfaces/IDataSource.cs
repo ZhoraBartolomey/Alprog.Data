@@ -4,17 +4,17 @@ using System.Collections.Generic;
 
 namespace Alprog.Data.Pipeline.Interfaces
 {
-    public interface IDataSource<T>
+    public interface IDataSource
     {
-        IEnumerator<T> GetEnumerator();
-        void Add(T item);
-        void AddRange(T[] items);
-        void AddRange(IDataSource<T> data);
-        bool Remove(T item);
+        IEnumerator<object> GetEnumerator();
+        void Add(object item);
+        void AddRange(object[] items);
+        void AddRange(IDataSource data);
+        bool Remove(object item);
         void RemoveAt(int index);
-        T Get(int index);
-        IDataSource<T> GetRange(int begin, int end);
+        object Get(int index);
+        IDataSource GetRange(int begin, int end);
         void Clear();
-        IDataSource<T> Create();
+        IDataSource Create();
     }
 }

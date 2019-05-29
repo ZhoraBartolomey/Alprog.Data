@@ -5,24 +5,24 @@ using System.Text;
 
 namespace Alprog.Data.Pipeline
 {
-    public class SingleItemDataProcessor<T> : IDataProcessor<T>
+    public class SingleItemDataProcessor : IDataProcessor
     {
         public SingleItemDataProcessor()
         {
 
         }
 
-        public SingleItemDataProcessor(Func<T, T> processor)
+        public SingleItemDataProcessor(Func<object, object> processor)
         {
             Processor = processor;
         }
 
         public Guid Id { get; set; }
-        Func<T, T> Processor { get; set; }
-        public IDataSource<T> Process(IDataSource<T> input)
+        Func<object, object> Processor { get; set; }
+        public IDataSource Process(IDataSource input)
         {
-            IDataSource<T> dataSource = input.Create();
-            foreach (T item in input)
+            IDataSource dataSource = input.Create();
+            foreach (object item in input)
             {
                 dataSource.Add(Processor(item));
             }

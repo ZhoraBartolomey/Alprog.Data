@@ -4,14 +4,14 @@ using System.Text;
 
 namespace Alprog.Data.Pipeline.Interfaces
 {
-    public interface IDataPipeline<T>
+    public interface IDataPipeline
     {
         int CurrentProcessorIndex { get; set; }
-        IDataProcessor<T> CurrentProcessor { get; set; }
-        IDataSource<T> CurrentData { get; set; }
-        IList<IDataProcessor<T>> Processors { get; set; }
+        IDataProcessor CurrentProcessor { get; set; }
+        IDataSource CurrentData { get; set; }
+        IList<IDataProcessor> Processors { get; set; }
         void StartAndContinueToEnd();
-        IDataSource<T> NextProcessor();
-        void Add(IDataProcessor<T> processor);
+        IDataSource NextProcessor();
+        void Add(IDataProcessor processor);
     }
 }
