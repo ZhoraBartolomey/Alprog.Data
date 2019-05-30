@@ -1,20 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Alprog.Data.Pipeline.Interfaces
 {
-    public interface IDataSource
+    public interface IDataSource<T> : IList<T>
     {
-        IEnumerator<object> GetEnumerator();
-        void Add(object item);
-        void AddRange(object[] items);
-        void AddRange(IDataSource data);
-        bool Remove(object item);
-        void RemoveAt(int index);
-        object Get(int index);
-        IDataSource GetRange(int begin, int end);
-        void Clear();
-        IDataSource Create();
+        IList<T> Filtered { get; set; }
+        IList<T> ThrownAway { get; set; }
     }
 }

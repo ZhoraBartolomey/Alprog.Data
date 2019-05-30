@@ -1,72 +1,76 @@
 ﻿using Alprog.Data.Pipeline.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Alprog.Data.Pipeline
 {
-    public class ListDataSource : IDataSource
+    public class ListDataSource<T> : IDataSource<T>
     {
-
-        public List<object> Items { get; set; } = new List<object>();
-
-        public void Add(object item)
+        public ListDataSource()
         {
-            Items.Add(item);
+            Filtered = new List<T>();
+            ThrownAway = new List<T>();
         }
 
-        public void AddRange(object[] items)
-        {
-            Items.AddRange(items);
-        }
+        public T this[int index] { get { return Filtered[index]; } set { Filtered[index] = value; } }
 
-        public void AddRange(IDataSource data)
+        public IList<T> Filtered { get; set; }
+        public IList<T> ThrownAway { get; set; }
+
+        public int Count { get { return Filtered.Count; } }
+
+        public bool IsReadOnly { get { return false; } }
+
+        public void Add(T item)
         {
-            foreach (object d in data)
-            {
-                Items.Add(d);
-            }
+            Filtered.Add(item);
         }
 
         public void Clear()
         {
-            Items.Clear();
+            Filtered.Clear();
         }
 
-        public IDataSource Create()
+        public bool Contains(T item)
         {
-            return new ListDataSource();
+            return Filtered.Contains(item);
         }
 
-        public object Get(int index)
+        public void CopyTo(T[] array, int arrayIndex)
         {
-            return Items[index];
+            Filtered.CopyTo(array, arrayIndex);
         }
 
-        public IEnumerator<object> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
-            return Items.GetEnumerator();
+            return Filtered.GetEnumerator();
         }
 
-        public IDataSource GetRange(int begin, int end)
+        public int IndexOf(T item)
         {
-            ListDataSource result = new ListDataSource();
-            for (int i = begin; i <= end; i++)
-            {
-                result.Add(Items[i]);   
-            }
-            return result;
+            return Filtered.IndexOf(item);
         }
 
-        public bool Remove(object item)
+        public void Insert(int index, T item)
         {
-            return Items.Remove(item);
+            Filtered.Insert(index, item);
+        }
+
+        public bool Remove(T item)
+        {
+            return Filtered.Remove(item);
         }
 
         public void RemoveAt(int index)
         {
-            Items.RemoveAt(index);
+            Filtered.RemoveAt(index);
         }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return Filtered.GetEnumerator();
+        }
     }
 }
