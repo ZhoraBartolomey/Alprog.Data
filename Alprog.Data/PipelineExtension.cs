@@ -7,6 +7,19 @@ namespace Alprog.Data.Pipeline
 {
     public static class PipelineExtension
     {
+        public static IDataSource<T> EveryItem<T>(this IEnumerable<T> enumerable, Action<T> processor, bool dispose = true)
+        {
+            foreach (T item in enumerable)
+            {
+                processor(item);
+            }
+            
+            var a = new ListDataSource<T>() { Filtered = new List<T>(enumerable) };
+            if (dispose)
+                enumerable = null;
+            return a;
+        }
+
         public static IDataSource<T> Process<T>(this IEnumerable<T> enumerable, Func<T, T> processor, bool dispose = true)
         {
             ListDataSource<T> output = new ListDataSource<T>();

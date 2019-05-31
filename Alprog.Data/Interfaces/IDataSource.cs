@@ -8,5 +8,6 @@ namespace Alprog.Data.Pipeline.Interfaces
     {
         IList<T> Filtered { get; set; }
         IList<T> ThrownAway { get; set; }
+        T[] ToArray();
     }
 }

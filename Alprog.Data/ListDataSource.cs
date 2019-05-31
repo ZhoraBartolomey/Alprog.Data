@@ -68,6 +68,11 @@ namespace Alprog.Data.Pipeline
             Filtered.RemoveAt(index);
         }
 
+        public T[] ToArray()
+        {
+            return ((List<T>)Filtered).ToArray();
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
             return Filtered.GetEnumerator();
