@@ -1,32 +1,65 @@
 # Alprog.Data
 `Alprog.Data` is a extendable system for processing data. 
 ## Conception
-There are `pipelines`, `processors` and `data sources`. So, here is a visualisation:
+In `Alprog.Data` are extension methods for processing data and not only. 
+Go to examples!
+## Simplification of `If/Else constructions`
+Okey. For begin, let's change your mean about `if/else constructions`.
+Default:
+```cs
+if (a > 10)
+{
+   ...
+}
+else if (a > 5)
+{
+   ...
+}
+else
+{
+   ...
+}
 ```
-Pipeline
-|-----------|     |--------------|    |-----------|
-|IDataSource| ==> |IDataProcessor| => |IDataSource| => ........ etc.
-|-----------|     |--------------|    |-----------|
+With Alprog.Data extension methods:
+```cs
+a.If(x => x > 10).Then(...)
+.ElseIf(x => x > 5).Then(...)
+.Else(...);
 ```
-What's going on here? 
-It's a `Data Pipeline`
+As you noticed, here `if/else construction` looks like English language. It's easy for writing the code.
+[How it work and underwater stones](conditionSimplification.md)
 
-A data is going to a `Data Processor`. It's processing data and return us a processed data. 
-This processed data is going to an other `Data Processor`. It's doing same.
-This action is going while Another Data Processors are available.
+## Extension methods for processing lists and arrays
 
-Here is a UML visualisation of a `Pipeline`:
+Default:
+```cs
+foreach (object item in items)
+{
+     ...
+}
 ```
-|=====================|     |==============|     |=============|
-|IDataPipeline        |     |IDataProcessor|     |IDataSource  |
-|=====================|     |==============|     |=============|
-|Processors           |     |Process       |     |Add          |
-|CurrentDataSource    |     |--------------|     |AddRange     |
-|CurrentProcessor     |                          |Remove       |
-|CurrentProcessorIndex|                          |RemoveRange  |
-|AddProcessor         |                          |Get          |
-|NextProcessor        |                          |GetRange     |
-|StartAndContinueToEnd|                          |Clear        |
-|---------------------|                          |GetEnumerator|
-                                                 |-------------|
+Or:
+```cs
+for (int i = 0; i < items.Lenght; i++)
+{
+    ...
+}
 ```
+It can be easy with Alprog.Data!
+If just for example output somewhere: 
+```cs
+items.EveryItem(x => ...);
+```
+If need to process data:
+```cs
+items.Process(x => ...);
+```
+Filtering data:
+```cs
+items.FilterBy(x => ...); //here lamda-function must return boolean value!
+```
+And transform data to other type:
+```cs
+items.Transform(x => ...);
+```
+These methods can be called in any type, which inherts `IEnumerable`
